@@ -41,7 +41,7 @@ public class App {
 		String loop = "";
 		String cvsSplitBy = ",";
 		
-		String uriString = "mongodb://34.123.176.53:"+27017;
+		String uriString = "mongodb://35.192.174.210:"+27017;
 
 		// Connecting to mongo db
 
@@ -52,7 +52,7 @@ public class App {
 		MongoCursor<String> iterator = mongoIterable.iterator();
 		MongoCredential credential;
 		System.out.println("Connected to the database successfully");
-		MongoCollection<Document> collection = database.getCollection("stationsdata");
+		MongoCollection<Document> collection = database.getCollection("stationcollection3");
 
 		// read CSV data
 		try {
@@ -66,6 +66,7 @@ public class App {
 				String[] station = sl.split(cvsSplitBy);
 				String stationid = station[0];
 				String highwayid = station[1];
+				//System.out.println(station[8] + "---" +station[9] + "---");
 				if (station[1] != null && !station[1].isEmpty()) {
 					station_document = new Document("stationid", station[0]).append("highwayid", station[1])
 							.append("milepost", station[2]).append("locationtext", station[3])
@@ -79,10 +80,8 @@ public class App {
 						String[] detector = dl.split(cvsSplitBy);
 						if (detector[6] != null && !detector[6].isEmpty()
 								&& detector[6].equalsIgnoreCase(stationid)) {
-							detector_document = new Document("detectorid", detector[0])
-									.append("highwayid", detector[1]).append("milepost", detector[2])
-									.append("locationtext", detector[3]).append("detectorclass", detector[4])
-									.append("lanenumber", detector[5]).append("stationid", detector[6]);
+							detector_document = new Document("detectorid", detector[0]).append("detectorclass", detector[4])
+									.append("lanenumber", detector[5]);
 							detectordocuments.add(detector_document);
 						}
 					}
@@ -101,7 +100,7 @@ public class App {
 				// Inserting documents into the collection
 				collection.insertOne(station_document);
 			}
-			MongoCollection<Document> loopCollection = database.getCollection("loopdata");
+			/*MongoCollection<Document> loopCollection = database.getCollection("loopdata");
 			br = new BufferedReader(new FileReader(loopDataFile));
 			Date startDate = new Date();
 			SimpleDateFormat sd = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -126,7 +125,7 @@ public class App {
 						.append("status", loop_record[5].equals("") ? "" : Integer.parseInt(loop_record[5]))
 						.append("dqflags", loop_record[6].equals("") ? "" : Integer.parseInt(loop_record[6]));
 				loopCollection.insertOne(loop_document);
-			}
+			}*/
 			
 			
 			System.out.println("Execution finished!!");
