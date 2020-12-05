@@ -21,10 +21,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.bson.Document;
+
+
 // Volume: Find the total volume for the station Foster NB for Sept 15, 2011.
+
+
 public class Query2 {
 	public static void main(String[] args) {
-		String uriString = "mongodb://35.188.82.31:"+27017;
+		String uriString = "mongodb://35.239.16.148:"+27017;
 
 		// Connecting to mongo
 
@@ -73,16 +77,9 @@ public class Query2 {
 						Filters.lt("starttime", end)));
 		int count = 0;
 		
-		//FindIterable<Document> loopdata1 = loopcollection.find();
-		
 		// Step 3: Adding the volumes
 		
 		for(Document loop : loopdata1) {
-			/*System.out.println(loop.get("starttime"));
-			System.out.println(start.compareTo((Date) loop.get("starttime")));*/
-			/*if(start.compareTo((Date) loop.get("starttime")) <= 0 && end.compareTo((Date) loop.get("starttime")) > 0) {
-				count++;
-			}*/
 			count++;
 			if(loop.get("volume") != null) {
 				 String string= loop.get("volume").toString();

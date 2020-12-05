@@ -1,6 +1,8 @@
 package mongo;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 
 import org.bson.Document;
 
@@ -10,34 +12,30 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Updates.*;
-import static com.mongodb.client.model.Filters.*;
-import com.mongodb.client.model.UpdateOptions;
 
-
-// Update: Change the milepost of the Foster NB station to 22.6.
-
-public class Query6 {
+public class Cleaning {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String uriString = "mongodb://35.239.16.148:"+27017;
 
-		// Connecting to mongo
+		// Connecting to mongo db
 
 		MongoClientURI uri = new MongoClientURI(uriString);
 		MongoClient mongo = new MongoClient(uri);
 		MongoDatabase database = mongo.getDatabase("config");
 		Instant startinstance = Instant.now();
-		MongoCollection<Document> collection = database.getCollection("stationcollection2");
-		
-		// updating document
-		
-		collection.updateOne(Filters.in("locationtext", "Foster NB"), set("milepost", "22.6"));
-		FindIterable<Document> stations = collection.find(Filters.in("locationtext", "Foster NB"));
+		System.out.println("connected");
+		MongoCollection<Document> loopcollection = database.getCollection("loopdata2");
+		FindIterable<Document> stations = loopcollection.find();
+		//loopcollection.deleteMany(Filters.or(Filters.eq("speed", "0"), Filters.eq("speed", "")));
+		int count = 0;
 		for(Document station : stations) {
-			System.out.println("Milepost updated to : "+station.get("milepost"));
-		}
+			count++;
+	}
+		System.out.println(count);
+		System.out.println("Successful");
+		mongo.close();
 	}
 
 }

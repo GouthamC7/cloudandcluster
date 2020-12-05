@@ -19,7 +19,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import org.bson.Document;
-// Peak Period Travel Times: Find the average travel time for 7-9AM and 4-6PM on September 22, 2011 for station Foster NB. Report travel time in minutes.
+
+
 public class Query3 {
 	public static void main(String[] args) {
 		

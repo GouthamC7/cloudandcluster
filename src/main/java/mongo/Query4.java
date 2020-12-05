@@ -26,7 +26,7 @@ import org.bson.Document;
 public class Query4 {
 	public static void main(String[] args) {
 		
-		String uriString = "mongodb://35.192.174.210:"+27017;
+		String uriString = "mongodb://35.239.16.148:"+27017;
 
 		// Connecting to mongo
 
@@ -39,8 +39,6 @@ public class Query4 {
 		ArrayList<String> detectorids = new ArrayList<String>();
 		double stationLength = 0;
 		for(Document station : stations) {
-			//ArrayList<Document> arr = (ArrayList<Document>) station.get("stations");
-			//for(Document station : arr) {
 			if (String.valueOf(station.get("highwayname")).equalsIgnoreCase("I-205")
 					&& String.valueOf(station.get("shortdirection")).equalsIgnoreCase("N")) {
 					stationLength += Double.parseDouble((String) station.get("length"));
@@ -49,7 +47,6 @@ public class Query4 {
 						detectorids.add(String.valueOf(detector.get("detectorid")));
 					}
 				}
-			//}
 		}
 		Set<String> tokens = new HashSet<String>();
 		for(String s : detectorids) {
